@@ -1,3 +1,4 @@
+//H
 package vista;
 
 import java.awt.*;
