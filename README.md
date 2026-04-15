@@ -1,4 +1,4 @@
-#Gestión de Contactos - Programación de Interfaces
+# Gestión de Contactos - Programación de Interfaces
 Este proyecto es una aplicación de escritorio desarrollada en **Java** con la librería **Swing**. El sistema permite gestionar una lista de contactos personal, aplicando conceptos avanzados de manejo de eventos y el patrón de diseño **MVC (Modelo-Vista-Controlador)**, conforme a los requerimientos de la Universidad Politécnica Salesiana.
 
 ## Funcionalidades Principales
