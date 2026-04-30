@@ -61,4 +61,15 @@ public class personaDAO {
 		}
 		return lista;
 	}
+	public void guardarListaCompleta(List<persona> lista) {
+	    try (FileWriter fw = new FileWriter(archivo, false);
+	         PrintWriter pw = new PrintWriter(fw)) {
+	        pw.println("NOMBRE;TELEFONO;EMAIL;CATEGORIA;FAVORITO");
+	        for (persona p : lista) {
+	            pw.println(p.datosContacto());
+	        }
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
 }
