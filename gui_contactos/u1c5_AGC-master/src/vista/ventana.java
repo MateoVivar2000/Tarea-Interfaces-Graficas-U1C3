@@ -1,6 +1,5 @@
 //H
 package vista;
-
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
+import controlador.Lenguaje;
 public class ventana extends JFrame {
 
 	public JPanel contentPane;
@@ -25,6 +24,15 @@ public class ventana extends JFrame {
 	public JProgressBar barra_progreso; 
 	public JPopupMenu menu_contextual; 
 
+	public void actualizarTextos() {
+	    // Asegúrate de que las llaves ("titulo", "eti_nombre") existan en tus 3 archivos .properties
+	    setTitle(Lenguaje.get("titulo"));
+	    txt_nombres.setText(Lenguaje.get("eti_nombre"));
+	    btn_add.setText(Lenguaje.get("btn_agregar"));
+	    btn_modificar.setText(Lenguaje.get("btn_editar"));
+	    btn_eliminar.setText(Lenguaje.get("btn_borrar"));
+	}
+	
 	public ventana() {
 		setBackground(new Color(240, 240, 240));
 		setTitle("GESTIÓN DE CONTACTOS - UPS");
