@@ -8,6 +8,7 @@ import javax.swing.table.DefaultTableModel;
 import controlador.logica_ventana;
 import javax.swing.GroupLayout.Alignment;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 import java.awt.event.ActionEvent;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
@@ -51,16 +52,11 @@ public class ventana extends JFrame {
 
 		// --- PESTAÑA 2: ESTADÍSTICAS ---
 		JPanel PnEstadisticas = new JPanel();
-		PnEstadisticas.setLayout(null);
 
 		btn_exportar = new JButton("EXPORTAR CONTACTOS A CSV");
-		btn_exportar.setBounds(350, 100, 300, 50);
-		PnEstadisticas.add(btn_exportar);
 
 		barra_progreso = new JProgressBar(0, 100);
-		barra_progreso.setBounds(200, 180, 600, 40);
 		barra_progreso.setStringPainted(true);
-		PnEstadisticas.add(barra_progreso);
 
 		tabbedPane.addTab("Contactos", panelContactos);
 				
@@ -200,6 +196,28 @@ public class ventana extends JFrame {
 		);
 		panelContactos.setLayout(gl_panelContactos);
 		tabbedPane.addTab("Estadísticas", PnEstadisticas);
+		GroupLayout gl_PnEstadisticas = new GroupLayout(PnEstadisticas);
+		gl_PnEstadisticas.setHorizontalGroup(
+			gl_PnEstadisticas.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PnEstadisticas.createSequentialGroup()
+					.addGroup(gl_PnEstadisticas.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_PnEstadisticas.createSequentialGroup()
+							.addGap(109)
+							.addComponent(barra_progreso, GroupLayout.PREFERRED_SIZE, 600, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_PnEstadisticas.createSequentialGroup()
+							.addGap(251)
+							.addComponent(btn_exportar, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(140, Short.MAX_VALUE))
+		);
+		gl_PnEstadisticas.setVerticalGroup(
+			gl_PnEstadisticas.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_PnEstadisticas.createSequentialGroup()
+					.addGap(112)
+					.addComponent(btn_exportar, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(barra_progreso, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+		);
+		PnEstadisticas.setLayout(gl_PnEstadisticas);
 		contentPane.add(tabbedPane, BorderLayout.CENTER);
 
 		// Menú Contextual 
@@ -208,6 +226,14 @@ public class ventana extends JFrame {
 
 		// Controlador bajo patrón MVC [cite: 29]
 		new logica_ventana(this);
+	}
+	public void actualizarTextos() {
+	    // Asegúrate de que los nombres (lblNombre, btn_add) coincidan con los tuyos
+	    setTitle(Lenguaje.get("titulo"));
+	    lblNombre.setText(Lenguaje.get("eti_nombre")); 
+	    btn_add.setText(Lenguaje.get("btn_agregar"));
+	    btn_modificar.setText(Lenguaje.get("btn_editar"));
+	    btn_eliminar.setText(Lenguaje.get("btn_borrar"));
 	}
 
 	public static void main(String[] args) {

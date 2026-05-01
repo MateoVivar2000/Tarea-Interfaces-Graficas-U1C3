@@ -16,6 +16,8 @@ public class logica_ventana implements ActionListener, MouseListener, KeyListene
 
 	public logica_ventana(ventana delegado) {
 		this.delegado = delegado;
+		Lenguaje.definirIdioma("es", "EC");
+	    delegado.actualizarTextos();
 		cargarDatosTabla();
 
 		// Listeners
@@ -66,10 +68,6 @@ public class logica_ventana implements ActionListener, MouseListener, KeyListene
 		dao.escribirArchivo();
 	}
 
-	public void elimianDatos() {
-
-	}
-
 	public void limpiarcampos() {
 		delegado.txt_nombres.setText(null);
 		delegado.txt_telefono.setText(null);
@@ -88,10 +86,43 @@ public class logica_ventana implements ActionListener, MouseListener, KeyListene
 		new personaDAO(new persona()).guardarListaCompleta(contactos);
 		cargarDatosTabla();
 	}
+	
+	private void ejecutarModificacion() {
+	    int filaVisual = delegado.tabla_contactos.getSelectedRow();
+	    
+	    if (filaVisual != -1) {
+	        int filaModelo = delegado.tabla_contactos.convertRowIndexToModel(filaVisual);
+	        persona p = contactos.get(filaModelo);
+	        p.setNombre(delegado.txt_nombres.getText());
+	        p.setTelefono(delegado.txt_telefono.getText());
+	        p.setEmail(delegado.txt_email.getText());
+	        p.setCategoria(delegado.cmb_categoria.getSelectedItem().toString());
+
+	        // Guardamos la lista actualizada en el archivo físico
+	        new personaDAO(new persona()).guardarListaCompleta(contactos);
+
+	        // Refrescamos la interfaz
+	        cargarDatosTabla();
+	        limpiarcampos();
+	        JOptionPane.showMessageDialog(delegado, "Contacto actualizado correctamente");
+	    } else {
+	        JOptionPane.showMessageDialog(delegado, "Por favor, selecciona un contacto de la tabla primero.");
+	    }
+	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == delegado.btn_exportar) {
+		if (e.getSource() == delegado.btn_espanol) {
+	        Lenguaje.definirIdioma("es", "EC");
+	        delegado.actualizarTextos();
+	    } else if (e.getSource() == delegado.btn_ingles) {
+	        Lenguaje.definirIdioma("en", "US");
+	        delegado.actualizarTextos();
+	    } else if (e.getSource() == delegado.btn_frances) {
+	        Lenguaje.definirIdioma("fr", "FR");
+	        delegado.actualizarTextos();
+	    }
+	    else if (e.getSource() == delegado.btn_exportar) {
 			exportarAnimacion();
 		} else if (e.getSource() == delegado.btn_add) {
 			obtenerValoresyCrear();
@@ -105,6 +136,8 @@ public class logica_ventana implements ActionListener, MouseListener, KeyListene
 			if (respuesta == JOptionPane.YES_OPTION) {
 				eliminarContacto();
 				JOptionPane.showMessageDialog(delegado, "Contacto Eliminado");
+		} else if (e.getSource() == delegado.btn_modificar) {
+				ejecutarModificacion();
 			}
 		}
 	}
@@ -159,7 +192,6 @@ public class logica_ventana implements ActionListener, MouseListener, KeyListene
 		int index = delegado.tabla_contactos.getColumnModel().getColumnIndex(nombreColumna);
 		return delegado.tabla_contactos.getValueAt(fila, index).toString();
 	}
-
 
 	// Métodos vacíos obligatorios
 	public void keyTyped(KeyEvent e) {
