@@ -8,8 +8,8 @@ public class Lenguaje {
 
     public static void definirIdioma(String idioma, String pais) {
         Locale local = new Locale(idioma, pais);
-        // Si los archivos están en la raíz de src, usa solo "mensajes"
-        bundle = ResourceBundle.getBundle("mensajes", local);
+        // "idiomas.mensajes" si están en esa carpeta, o solo "mensajes" si están en src
+        bundle = ResourceBundle.getBundle("idiomas.mensajes", local);
     }
 
     public static String get(String llave) {
